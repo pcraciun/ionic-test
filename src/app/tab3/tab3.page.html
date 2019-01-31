@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Test
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Checking possibilities</ion-card-subtitle>
+      <ion-card-title>Native plugins</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><b>Platforms:</b> {{ platformList }}</p>
+      <p *ngIf="isMobile; else desktop">
+        <b>Battery level:</b> {{ batteryLevel }}%,
+        <span  *ngIf="batteryPluggedStatus; else unplugged">Plugged</span>
+        <ng-template #unplugged>Unplugged</ng-template>
+      </p>
+      <ng-template #desktop><p><b>Battery level not available</b></p></ng-template>
+      <p><b>Coordinates:</b> lat: {{ latitude || 'NA' }}, long: {{ longitude || 'NA' }}</p>
+      <p>
+        <ion-list *ngIf="deviceDiagnostic.length; else noDeviceDiagnostic">
+          <ion-list-header>Device diagnostic:</ion-list-header>
+          <ion-item *ngFor="let dd of deviceDiagnostic">
+            <b>{{dd}}</b>
+          </ion-item>
+        </ion-list>
+        <ng-template #noDeviceDiagnostic><b>No Device diagnostic available</b></ng-template>
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Checking possibilities</ion-card-subtitle>
+      <ion-card-title>Compare lists</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="cut-height">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-virtual-scroll [items]="array">
+              <ion-list-header>Virtual list</ion-list-header>
+              <ion-item *virtualItem="let item">{{item}}</ion-item>
+            </ion-virtual-scroll>
+          </ion-col>
+          <ion-col>
+            <ion-list>
+              <ion-list-header>Standard ion list</ion-list-header>
+              <ion-item *ngFor="let item of array">{{item}}</ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
